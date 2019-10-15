@@ -5,8 +5,11 @@
 
 
 ### run
+
+> 端口号：8080
+
 ```sh
-docker run -it -p 9966:8080 -v $PWD:/usr/smart/target murphyl/smart-tomcat:v0.7
+docker run -d -p 9966:8080 --name=web -v $PWD:/webapps murphyl/smart-tomcat:v0.7
 ```
 
 ### build
@@ -14,6 +17,17 @@ docker run -it -p 9966:8080 -v $PWD:/usr/smart/target murphyl/smart-tomcat:v0.7
 docker build -t murphyl/smart-tomcat:v0.7 .
 ```
 
-### TODO
+### restart
 
-- 完善远程调试
+``` sh
+docker start -i web
+```
+
+### remote debug
+
+> 默认端口号：8000
+
+```sh
+docker run -d -p 9968:8080 -p 9969:8000 --name=web -v $PWD:/webapps murphyl/smart-tomcat:v0.1
+
+```

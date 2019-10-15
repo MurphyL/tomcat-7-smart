@@ -32,6 +32,8 @@ ENV DIST_FILE tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/$TOMCAT_DEST.tar.
 # 拷贝必须的文件
 COPY *.sh server.xml $WORK_DIR/
 
+ENV DEBUG_PORT 8000
+
 RUN set -eux; \
 	download() { ( \
 		set -eu +x; \
@@ -53,7 +55,8 @@ RUN set -eux; \
 	cp -R $WORK_DIR/server.xml $CATALINA_HOME/conf; \
 	chmod 777 $CATALINA_HOME/logs; \
 	chmod 777 $CATALINA_HOME/temp; \
-	chmod +x $CATALINA_HOME/bin/catalina.sh;
+	chmod +x $CATALINA_HOME/bin/catalina.sh; \
+	sed -i '2i CATALINA_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n"' $CATALINA_HOME/bin/catalina.sh;
 
 EXPOSE 8080
 
