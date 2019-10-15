@@ -1,6 +1,6 @@
 ### run
 ```sh
-docker run -it -p 9966:8080 -v $(pwd):/usr/smart/target murphyl/smart-tomcat:v0.7
+docker run -it -p 9966:8080 -v $PWD:/usr/smart/target murphyl/smart-tomcat:v0.7
 ```
 
 ### build
