@@ -36,7 +36,6 @@ ENV DEBUG_PORT 8000
 
 RUN set -eux; \
 	download() { ( \
-		set -eu +x; \
 		for mirror in \
 			'http://mirror.bit.edu.cn/apache/' \
 			'https://mirrors.tuna.tsinghua.edu.cn/apache/' \
