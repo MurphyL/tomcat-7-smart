@@ -35,6 +35,7 @@ COPY *.sh server.xml $WORK_DIR/
 ENV DEBUG_PORT 8000
 
 RUN set -eux; \
+<<<<<<< HEAD
 	if wget -qO "$CATALINA_HOME.tar.gz" "http://mirror.bit.edu.cn/apache/$DIST_FILE" && [ -s "$CATALINA_HOME.tar.gz" ]; then \
 		tar -zxf $CATALINA_HOME.tar.gz -C $WORK_DIR; \
 		cp -R $WORK_DIR/server.xml $CATALINA_HOME/conf; \
@@ -43,6 +44,18 @@ RUN set -eux; \
 		chmod +x $CATALINA_HOME/bin/catalina.sh; \
 		sed -i '2i CATALINA_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n"' $CATALINA_HOME/bin/catalina.sh;
 	fi; \
+=======
+
+	if curl -fL -o "$CATALINA_HOME.tar.gz" "http://mirror.bit.edu.cn/apache/$DIST_FILE" && [ -s "$CATALINA_HOME.tar.gz" ]; then \
+		break; \
+	fi; \
+	tar -zxf $CATALINA_HOME.tar.gz -C $WORK_DIR; \
+	cp -R $WORK_DIR/server.xml $CATALINA_HOME/conf; \
+	chmod 777 $CATALINA_HOME/logs; \
+	chmod 777 $CATALINA_HOME/temp; \
+	chmod +x $CATALINA_HOME/bin/catalina.sh; \
+	sed -i '2i CATALINA_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n"' $CATALINA_HOME/bin/catalina.sh;
+>>>>>>> 08a5015d503a213ddf49361e3cf454e8e01b5b53
 
 EXPOSE 8080
 
